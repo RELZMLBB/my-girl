@@ -41,6 +41,67 @@
       font-size: 14px;
       color: #999;
     }
+    .like-section, .comment-section {
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: left;
+      background: #ffe6f1;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 10px #ff69b4aa;
+    }
+    .like-btn {
+      background-color: #ff69b4;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .like-btn.liked {
+      background-color: #d81e6e;
+    }
+    .like-count {
+      font-weight: bold;
+    }
+    .comment-form textarea {
+      width: 100%;
+      height: 60px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      padding: 8px;
+      resize: vertical;
+      font-family: inherit;
+      font-size: 14px;
+    }
+    .comment-form button {
+      margin-top: 8px;
+      background-color: #ff69b4;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .comments-list {
+      margin-top: 15px;
+      max-height: 150px;
+      overflow-y: auto;
+      border-top: 1px solid #f8c7d5;
+      padding-top: 10px;
+    }
+    .comments-list p {
+      margin: 5px 0;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #ffd7eb;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -59,6 +120,83 @@
     <img src="https://files.catbox.moe/rj4xa9.jpg" alt="Foto 10">
   </div>
 
+  <div class="like-section">
+    <button id="likeBtn" class="like-btn"><span id="likeIcon">🤍</span> Like <span class="like-count" id="likeCount">0</span></button>
+  </div>
+
+  <div class="comment-section">
+    <form id="commentForm" class="comment-form">
+      <textarea id="commentInput" placeholder="Tulis komentar kamu..." required></textarea>
+      <button type="submit">Kirim Komentar</button>
+    </form>
+    <div class="comments-list" id="commentsList"></div>
+  </div>
+
   <footer>Made with © by Relzz</footer>
+
+  <script>
+    // Like functionality with localStorage
+    const likeBtn = document.getElementById('likeBtn');
+  const likeCountEl = document.getElementById('likeCount');
+    const likeIcon = document.getElementById('likeIcon');
+
+    let liked = JSON.parse(localStorage.getItem('liked')) || false;
+    let likeCount = parseInt(localStorage.getItem('likeCount')) || 0;
+
+    function updateLikeUI() {
+      likeCountEl.textContent = likeCount;
+      if(liked) {
+        likeBtn.classList.add('liked');
+        likeIcon.textContent = '❤️';
+      } else {
+        likeBtn.classList.remove('liked');
+        likeIcon.textContent = '🤍';
+      }
+    }
+
+    likeBtn.addEventListener('click', () => {
+      if(liked) {
+        liked = false;
+        likeCount = Math.max(0, likeCount - 1);
+      } else {
+        liked = true;
+        likeCount++;
+      }
+      localStorage.setItem('liked', JSON.stringify(liked));
+      localStorage.setItem('likeCount', likeCount);
+      updateLikeUI();
+    });
+
+    updateLikeUI();
+
+    // Comment functionality with localStorage
+    const commentForm = document.getElementById('commentForm');
+    const commentInput = document.getElementById('commentInput');
+    const commentsList = document.getElementById('commentsList');
+
+    let comments = JSON.parse(localStorage.getItem('comments')) || [];
+
+    function renderComments() {
+      commentsList.innerHTML = '';
+      comments.forEach(comment => {
+        const p = document.createElement('p');
+        p.textContent = comment;
+        commentsList.appendChild(p);
+      });
+    }
+
+    commentForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const commentText = commentInput.value.trim();
+      if(commentText) {
+        comments.push(commentText);
+        localStorage.setItem('comments', JSON.stringify(comments));
+        commentInput.value = '';
+        renderComments();
+      }
+    });
+
+    renderComments();
+  </script>
 </body>
 </html>
