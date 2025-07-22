@@ -3,113 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Galeri Bucin Relzz</title>
+  <title>Galeri Cinta Relzz</title>
   <style>
-    body {
-      background: #fff0f5;
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-    h1 {
-      padding: 20px;
-      color: #ff69b4;
-      font-size: 32px;
-    }
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      padding: 20px;
-    }
-    .gallery img {
-      width: 200px;
-      height: 260px;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-    footer {
-      padding: 20px;
-      font-size: 14px;
-      color: #999;
-    }
-    .like-section, .comment-section {
-      max-width: 600px;
-      margin: 20px auto;
-      text-align: left;
-      background: #ffe6f1;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 10px #ff69b4aa;
-    }
-    .like-btn {
-      background-color: #ff69b4;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 20px;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .like-btn.liked {
-      background-color: #d81e6e;
-    }
-    .like-count {
-      font-weight: bold;
-    }
-    .comment-form textarea {
-      width: 100%;
-      height: 60px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      padding: 8px;
-      resize: vertical;
-      font-family: inherit;
-      font-size: 14px;
-    }
-    .comment-form button {
-      margin-top: 8px;
-      background-color: #ff69b4;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 20px;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .comments-list {
-      margin-top: 15px;
-      max-height: 150px;
-      overflow-y: auto;
-      border-top: 1px solid #f8c7d5;
-      padding-top: 10px;
-    }
-    .comments-list p {
-      margin: 5px 0;
-      padding-bottom: 5px;
-      border-bottom: 1px solid #ffd7eb;
-      font-size: 14px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Galeri My Girl🫶🏻🤍</h1>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
 
-  <div class="gallery">
-    <img src="https://files.catbox.moe/jcsn2x.jpg" alt="Foto 1">
-    <img src="https://files.catbox.moe/rlhiez.jpg" alt="Foto 2">
+    body {
+      background: linear-gradient(#ffc0cb, #ffe4e1), url('https://i.pinimg.com/originals/c4/00/0d/c4000d14551d3fd6c846d5a8379cba60.png');
+      background-repeat: repeat;
+      background-size: contain;
+      color: #fff;
+    }
+
+    .slider {
+      display: flex;
+      width: 200%;
+      height: 100vh;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      overflow-y: auto;
+      background: rgba(255, 192, 203, 0.8);
+      padding: 30px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ff1493;
+      text-shadow: 0 0 8px #fff;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 15px;
+      justify-items: center;
+    }
+  .gallery img, .gallery video {
+      width: 100%;
+      max-width: 180px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #ff69b4;
+    }
+
+    .nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2em;
+      color: #fff;
+      background: #ff69b4;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 0 10px #fff;
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+  </style>
+ <style>
+  .heart {
+    position: fixed;
+    top: -20px;
+    font-size: 24px;
+    color: pink;
+    animation: fall linear infinite;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<script>
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "💖";
+    heart.textContent = "✨";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  setInterval(createHeart, 300);
+</script>
+<body>
+  <!-- Halaman Foto -->
+  <div class="slide">
+    <h1>🤍My Girl🤍</h1>
+    <div class="gallery">
+    <img src="https://files.catbox.moe/civu9q.jpg" alt="Foto 1">
+    <img src="https://files.catbox.moe/y0phxg.jpg" alt="Foto 2">
     <img src="https://files.catbox.moe/7n7xvw.jpg" alt="Foto 3">
     <img src="https://files.catbox.moe/zwev9e.jpg" alt="Foto 4">
     <img src="https://files.catbox.moe/wpo2w1.jpg" alt="Foto 5">
@@ -123,85 +120,11 @@
     <img src="https://files.catbox.moe/6c0ymw.jpg" alt="Foto 13">
     <img src="https://files.catbox.moe/i7map4.jpg" alt="Foto 14">
     <img src="https://files.catbox.moe/on0r2n.jpg" alt="Foto 15">
+    <img src="https://files.catbox.moe/gw5144.jpg" alt="Foto 13">
+    <img src="https://files.catbox.moe/4kyb8m.jpg" alt="Foto 14">
+    <img src="https://files.catbox.moe/8tldan.jpg" alt="Foto 15">          
+      <footer></footer>
+      <footer>Made by Relzz</footer>
+    </div>
   </div>
-
-  <div class="like-section">
-    <button id="likeBtn" class="like-btn"><span id="likeIcon">🤍</span> Like <span class="like-count" id="likeCount">0</span></button>
-  </div>
-
-  <div class="comment-section">
-    <form id="commentForm" class="comment-form">
-      <textarea id="commentInput" placeholder="Tulis komentar kamu..." required></textarea>
-      <button type="submit">Kirim Komentar</button>
-    </form>
-    <div class="comments-list" id="commentsList"></div>
-  </div>
-
-  <footer>Made with © by Relzz</footer>
-
-  <script>
-    // Like functionality with localStorage
-    const likeBtn = document.getElementById('likeBtn');
-  const likeCountEl = document.getElementById('likeCount');
-    const likeIcon = document.getElementById('likeIcon');
-
-    let liked = JSON.parse(localStorage.getItem('liked')) || false;
-    let likeCount = parseInt(localStorage.getItem('likeCount')) || 0;
-
-    function updateLikeUI() {
-      likeCountEl.textContent = likeCount;
-      if(liked) {
-        likeBtn.classList.add('liked');
-        likeIcon.textContent = '❤️';
-      } else {
-        likeBtn.classList.remove('liked');
-        likeIcon.textContent = '🤍';
-      }
-    }
-
-    likeBtn.addEventListener('click', () => {
-      if(liked) {
-        liked = false;
-        likeCount = Math.max(0, likeCount - 1);
-      } else {
-        liked = true;
-        likeCount++;
-      }
-      localStorage.setItem('liked', JSON.stringify(liked));
-      localStorage.setItem('likeCount', likeCount);
-      updateLikeUI();
-    });
-
-    updateLikeUI();
-
-    // Comment functionality with localStorage
-    const commentForm = document.getElementById('commentForm');
-    const commentInput = document.getElementById('commentInput');
-    const commentsList = document.getElementById('commentsList');
-
-    let comments = JSON.parse(localStorage.getItem('comments')) || [];
-
-    function renderComments() {
-      commentsList.innerHTML = '';
-      comments.forEach(comment => {
-        const p = document.createElement('p');
-        p.textContent = comment;
-        commentsList.appendChild(p);
-      });
-    }
-
-    commentForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const commentText = commentInput.value.trim();
-      if(commentText) {
-        comments.push(commentText);
-        localStorage.setItem('comments', JSON.stringify(comments));
-        commentInput.value = '';
-        renderComments();
-      }
-    });
-
-    renderComments();
-  </script>
-</body>
-</html>
+  
